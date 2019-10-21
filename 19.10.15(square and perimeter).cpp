@@ -7,7 +7,10 @@ int s(int a){
 	return a*a;
 }
 int main(){
-	int a;
-	cin>>a;
-	cout<<"s="<<s(a)<<"\n"<<"p="<<p(a);
+	int a,n;
+	cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>a;
+		cout<<"s="<<s(a)<<"   "<<"p="<<p(a);
+	}
 }
