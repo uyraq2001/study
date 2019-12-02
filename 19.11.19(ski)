@@ -1,0 +1,33 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+int main(){
+	int n,mx=-1e-9,k=0,m;
+	cin>>n>>m;
+	int **a=new int*[n];
+	bool **b=new bool*[n];
+	for(int i=0;i<n;i++){
+		a[i]=new int[m];
+		b[i]=new bool[m];
+	}
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			cin>>a[i][j];
+		}
+	}
+	for(int i=0;i<n;i++){
+		for(int j=0;j<m;j++){
+			b[i][j]=1;
+		}
+	}
+	for(int i=0;i<n*m;i++){
+		for(int j=i+1;j<m*n;j++){
+			if(a[i/m][i%m]+a[j/m][j%m]==100&&(b[i/m][i%m]&&b[j/m][j%m])){
+				k++;
+				b[i/m][i%m]=0;
+				b[j/m][j%m]=0;
+			}
+		}
+	}
+	cout<<k;
+}
