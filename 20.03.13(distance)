@@ -1,0 +1,27 @@
+#include <iostream>
+#include <algorithm>
+#include <math.h>
+using namespace std;
+double distance1(int x,int y){
+	return sqrt(x*x+y*y);
+}
+double distance1(int x,int y,int z){
+	return sqrt(x*x+y*y+z*z);
+}
+double distance1(int x1,int y1,int x2,int y2){
+	return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+}
+double distance1(int x1,int y1,int z1,int x2,int y2,int z2){
+	return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)+(z1-z2)*(z1-z2));
+}
+int main(){
+	int x1,x2,y1,y2,z1,z2;
+	cin>>x1>>y1;
+	cout<<distance1(x1,y1)<<'\n';
+	cin>>x1>>y1>>z1;
+	cout<<distance1(x1,y1,z1)<<'\n';
+	cin>>x1>>y1>>x2>>y2;
+	cout<<distance1(x1,y1,x2,y2)<<'\n';
+	cin>>x1>>y1>>z1>>x2>>y2>>z2;
+	cout<<distance1(x1,y1,z1,x2,y2,z2)<<'\n';
+}
