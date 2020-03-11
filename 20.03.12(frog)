@@ -1,0 +1,18 @@
+#include <iostream>
+#include <algorithm>
+#include <math.h>
+using namespace std;
+int frog(int i){
+	if(i==0){
+		return 1;
+	}
+	if(i<0){
+		return 0;
+	}
+	return frog(i-3)+frog(i-5);
+}
+int main(){
+	int n;
+	cin>>n;
+	cout<<frog(n);
+}
