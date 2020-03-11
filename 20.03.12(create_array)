@@ -1,0 +1,22 @@
+#include <iostream>
+#include <algorithm>
+#include <math.h>
+using namespace std;
+template <typename T>
+T* create_arr(int n){
+	T *a=new T [n];
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+}
+template <typename T>
+void print_arr(T*p,int n){
+	for(int i=0;i<n;i++){
+		cout<<p[i];
+	}
+}
+int main(){
+	int n;
+	cin>>n;
+	print_arr(create_arr(n),n);
+}
