@@ -1,0 +1,59 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <string>
+using namespace std;
+template <typename T>
+class List
+{
+	struct Item
+	{
+		T inf;
+		Item* next;
+		Item(T x, Item* ref = nullptr) : inf(x), next(ref) {}
+	} *first = nullptr, * last = nullptr;
+public:
+	void add(T x)
+	{
+		Item* item = new Item(x);
+		if (last != nullptr)
+			last->next = item;
+		last = item;
+		 if (first == nullptr)
+			first = last;
+	}
+	void print()
+	{
+		for (Item* t = first; t != nullptr; t = t->next)
+			cout << t->inf << " ";
+		cout << endl;
+	}
+	void doubleX(T x)
+	{
+		for (Item* t = first; t != nullptr; t = t->next)
+		{
+			if (t->inf == x)
+			{
+				Item* newItem = new Item(x, t->next);
+				t->next = newItem;
+				t = t->next;
+			}
+		}
+	}
+	List postexсept(T value) {
+		List l;
+		for (Item* i = (*this).first; i != (*this).last; i = *i.next) {
+			if (*i.inf == value) {
+				l.add(*(*i.next).next);
+			}
+		}
+		return l;
+	}
+	void predelete(T value) {
+		for (Item* i = (*this).first; i != (*this).last; i = *i.next) {
+			if (*(*(*i.next).next).inf == value) {
+				*i.next=*(*(*i.next).next).next;
+			}
+		}
+	}
+};
