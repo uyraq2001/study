@@ -1,0 +1,241 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <vector>
+#include <list>
+using namespace std;
+class SimpleVector {
+	int* p;
+	int realsize;
+public:
+	int size;
+	SimpleVector() {
+		size = 0;
+		realsize = 1;
+	}
+	SimpleVector(int n) {
+		size = n;
+		realsize = 2 * n;
+		p = new int[realsize];
+		for (int i = 0; i < realsize; i++) {
+			p[i] = 0;
+		}
+	}
+	int * operator[](int i) {
+		const int index = i;
+		if (i < size) {
+			return p + index;
+		}
+	}
+	void pushback(int value) {
+		size++;
+		if (size > realsize) {
+			realsize *= 2;
+			int* newp = new int[realsize];
+			for (int i = 0; i < size - 1; i++) {
+				newp[i] = p[i];
+			}
+			p = newp;
+		}
+		p[size - 1] = value;
+	}
+	int find(int value) {
+		for (int i = 0; i < size; i++) {////O(n) - obvios too
+			if (p[i] == value) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	void remove(int value) {
+		int index = find(value);
+		if (index != -1) {
+			size--;
+			for (int i = index; i < size; i++) {
+				p[i] = p[i + 1];
+			}
+		}
+	}
+	void insertafter(int value) {
+		int index = find(value) + 1;
+		if (index != -1) {
+			pushback(p[size - 1]);
+			for (int i = size - 2; i >= index; i--) {
+				p[i] = p[i - 1];
+			}
+			p[index] = value;
+		}
+	}
+	void insert(int k, int a) {
+		pushback((*(*this)[size - 1]));
+		for (int i = size - 2; i > k; i--) {/////O(n) - obvios
+			(*(*this)[i]) = (*(*this)[i - 1]);
+		}
+		(*(*this)[k]) = a;
+	}
+	int size() {
+		return size;
+	}
+};
+template <typename T>
+class List
+{
+	struct Item
+	{
+		T inf;
+		Item* next;
+		Item(T x, Item* ref = nullptr) : inf(x), next(ref) {}
+	} *first = nullptr, * last = nullptr;
+public:
+	int* operator [](int a) {//////O(n)
+		Item* cur = first;
+		int num = 0;
+		for (num = 0; cur != nullptr && num < a && (*cur).next != nullptr; num++) {
+			cur = (*cur).next;
+		}
+		return &(*cur).inf;
+	}
+	void add(T x)
+	{
+		Item* item = new Item(x);
+		if (last != nullptr)
+			last->next = item;
+		last = item;
+		if (first == nullptr)
+			first = last;
+	}
+	void print()
+	{
+		for (Item* t = first; t != nullptr; t = t->next)
+			cout << t->inf << " ";
+		cout << endl;
+	}
+	void doubleX(T x)
+	{
+		for (Item* t = first; t != nullptr; t = t->next)
+		{
+			if (t->inf == x)
+			{
+				Item* newItem = new Item(x, t->next);
+				t->next = newItem;
+				t = t->next;
+			}
+		}
+	}
+	List postexсept(T value) {
+		List l;
+		for (Item* i = (*this).first; i != (*this).last; i = *i.next) {
+			if (*i.inf == value) {
+				l.add(*(*i.next).next);
+			}
+		}
+		return l;
+	}
+	void predelete(T value) {
+		for (Item* i = (*this).first; i != (*this).last; i = *i.next) {
+			if (*(*(*i.next).next).inf == value) {
+				*i.next = *(*(*i.next).next).next;
+			}
+		}
+	}
+	Item* findprev(int a) {/////O(n)
+		Item* p = first;
+		while ((*p).next != last&&(*(*p).next).inf!=a) {////O(n)
+			p = (*p).next;
+		}
+		if (p == last && (*p).inf != a) {
+			return nullptr;
+		}
+		return p;
+	}
+	void postdelete(Item* p) {
+		(*p).next = (*(*p).next).next;
+	}
+	void popfront() {
+		first = (*first).next;
+	}
+	void insertafter(Item* p, int a) {////O(1)
+		Item emt(a);
+		emt.next = (*p).next;
+		(*p).next = &emt;
+	}
+	Item* follow(Item* p) {
+		return (*p).next;
+	}
+};
+int main() {
+	SimpleVector mv;
+	List<int> ml;
+	vector<int> v;
+	list<int> l;
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		mv.pushback(a);
+		v.push_back(a);
+		ml.add(a);
+		l.push_back(a);
+	}
+	/////////////////////////////////////task 1/////////////////////////////////////////
+	int mn = 1e9;
+	for (int i = 0; i < n; i++) {/////O(n) - obviosly
+		if ((*mv[i]) < mn) {
+			mn = (*mv[i]);
+		}
+	}
+	mv.insert(mv.find(mn) - 1, 0);////O(n) - string 69 and 42
+	mv.insert(mv.find(mn) + 1, 0);
+	mn = 1e9;
+	for (int i = 0; i < n; i++) {/////O(n)
+		if (v[i] < mn) {
+			mn = v[i];
+		}
+	}
+	v.insert(find(v.begin(), v.end(), mn) - 1, 0);////O(n) - because it is vector 
+	v.insert(find(v.begin(), v.end(), mn) + 1, 0);
+	mn = 1e9;
+	int* pmn = nullptr, * ppmn;
+	for (int i = 0; i < n; i++) {/////O(n^2) - string 90
+		if ((*ml[i]) < mn) {
+			mn = (*ml[i]);
+		}
+	}
+	ml.insertafter(ml.follow(ml.findprev(mn)), 0);////O(n) - string 157 and 141
+	ml.insertafter(ml.findprev(mn), 0);
+	mn = 1e9;
+	list<int>::iterator itmn;
+	for (list<int>::iterator it = l.begin(); it != l.end(); it++) {////O(n)
+		if ((*it) < mn) {
+			mn = (*it);
+			itmn = it;
+		}
+	}
+	l.insert(itmn, 0);////O(1)
+	l.insert(--itmn, 0);
+	////////////////////////////////task 2///////////////////////////////////////////////
+	int mx = -1e9;
+	for (int i = 0; i < n; i++) {
+		if ((*mv[i]) > mx && (*mv[i]) < 0) {
+			mx = (*mv[i]);
+		}
+	}
+	int m;
+	if (v.size() % 2 == 0 && mx == -1e9) {
+		cout << "can't do task 2\n";
+		return 0;
+	}
+	m = v.size / 2 + 1;
+	(*mv[m]) = mx;///O(1)
+	v[m] = mx;///////O(1)
+	(*ml[m]) = mx;///O(n) - string 90
+	list<int>::iterator itmx;
+	for (list<int>::iterator it = l.begin(); it != l.end(); it++) {/////O(n)
+		if ((*it) == mx) {
+			itmx = it;
+		}
+	}
+	l.insert(itmx, mx);///O(1)
+	l.insert(--itmx, mx);
+}
