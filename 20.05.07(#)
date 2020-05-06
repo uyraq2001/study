@@ -1,0 +1,39 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <vector>
+#include <list>
+#include <stack>
+#include <string>
+using namespace std;
+int main() {
+	vector<char> a;
+	stack<char, vector<char>> s(a);
+	int t;
+	string income, outcome;
+	getline(cin,income);
+	for (int i = 0; i < income.size(); i++) {
+		s.push(income[i]);
+	}
+	int cnt = 0;
+	for (int i = 0; i < income.size(); i++) {
+		if (s.top() == '#') {
+			cnt++;
+		}
+		else {
+			if (cnt == 0) {
+				outcome.push_back(s.top());
+			}
+			else {
+				cnt--;
+			}
+		}
+		s.pop();
+	}
+	string b=outcome;
+	for (int i = 0; i < outcome.size(); i++) {
+		b[i] = outcome[outcome.size() - i - 1];
+	}
+	outcome = b;
+	cout << outcome;
+}
