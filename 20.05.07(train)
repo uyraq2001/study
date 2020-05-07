@@ -1,0 +1,121 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <vector>
+#include <list>
+#include <stack>
+#include <string>
+#include <queue>
+using namespace std;
+int main() {
+	vector<stack<char> > w(3);
+	int q;
+	cin >> q;
+	char v;
+	int n;
+	for (int i = 0; i < q; i++) {
+		cin >> v >> n;
+		w[n].push(v);
+		stack<char> b;
+		while (!(w[1].empty())) {
+			cout << w[1].top();
+			b.push(w[1].top());
+			w[1].pop();
+		}
+		while (!(b.empty())) {
+			w[1].push(b.top());
+			b.pop();
+		}
+		cout << '\n';
+		while (!(w[2].empty())) {
+			cout << w[2].top();
+			b.push(w[2].top());
+			w[2].pop();
+		}
+		while (!(b.empty())) {
+			w[2].push(b.top());
+			b.pop();
+		}
+		cout << '\n';
+	}
+}#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <vector>
+#include <list>
+#include <stack>
+#include <string>
+#include <queue>
+using namespace std;
+int main() {
+	vector<stack<char> > w(3);
+	int q;
+	cin >> q;
+	char v;
+	int n;
+	for (int i = 0; i < q; i++) {
+		cin >> v >> n;
+		w[n].push(v);
+		stack<char> b;
+		while (!(w[1].empty())) {
+			cout << w[1].top();
+			b.push(w[1].top());
+			w[1].pop();
+		}
+		while (!(b.empty())) {
+			w[1].push(b.top());
+			b.pop();
+		}
+		cout << '\n';
+		while (!(w[2].empty())) {
+			cout << w[2].top();
+			b.push(w[2].top());
+			w[2].pop();
+		}
+		while (!(b.empty())) {
+			w[2].push(b.top());
+			b.pop();
+		}
+		cout << '\n';
+	}
+}#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <vector>
+#include <list>
+#include <stack>
+#include <string>
+#include <queue>
+using namespace std;
+int main() {
+	vector<stack<char> > w(3);
+	int q;
+	cin >> q;
+	char v;
+	int n;
+	for (int i = 0; i < q; i++) {
+		cin >> v >> n;
+		w[n].push(v);
+		stack<char> b;
+		while (!(w[1].empty())) {
+			cout << w[1].top();
+			b.push(w[1].top());
+			w[1].pop();
+		}
+		while (!(b.empty())) {
+			w[1].push(b.top());
+			b.pop();
+		}
+		cout << '\n';
+		while (!(w[2].empty())) {
+			cout << w[2].top();
+			b.push(w[2].top());
+			w[2].pop();
+		}
+		while (!(b.empty())) {
+			w[2].push(b.top());
+			b.pop();
+		}
+		cout << '\n';
+	}
+}
