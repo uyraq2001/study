@@ -1,0 +1,69 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<algorithm>
+#include <vector>
+#include <fstream>
+#include <queue>
+#include <stack>
+using namespace std;
+ifstream inp("input.txt");
+ofstream outp("output.txt");
+int main() {
+	int n;
+	inp >> n;
+	queue<int>a;
+	for (int i = 0; i < n; i++) {
+		int t;
+		inp >> t;
+		a.push(t);
+	}
+	queue<int> o0, o22;
+	stack<int> o1, o21;
+	int k = 0;
+	for (int i = 0; i < n; i++) {
+		if (a.front() % 3 == 0) {
+			o0.push(a.front());
+			a.pop();
+			continue;
+		}
+		if (a.front() % 3 == 1) {
+			o1.push(a.front());
+			a.pop();
+		}
+		else {	
+			if (k % 2 == 0) {
+				o21.push(a.front());
+				a.pop();
+			}
+			else {
+				o22.push(a.front());
+				a.pop();
+			}
+		}
+	}
+	while (!o0.size() == 0) {
+		outp << o0.front << ' ';
+		o0.pop();
+	}
+	outp << '\n';
+	while (!o0.size() == 0) {
+		outp << o0.front << ' ';
+		o0.pop();
+	}
+	outp << '\n';
+	while (!o1.size() == 0) {
+		outp << o1.top << ' ';
+		o1.pop();
+	}
+	outp << '\n';
+	while (!o21.size() == 0) {
+		outp << o21.top << ' ';
+		o21.pop();
+	}
+	outp << '\n';
+	while (!o22.size() == 0) {
+		outp << o22.front << ' ';
+		o22.pop();
+	}
+	outp << '\n';
+}
